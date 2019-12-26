@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if request.session.is_login %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>培养方案查询显示</title>
+</head>
+<body>
+    <form action="/QA_add/" method="POST"  class="form-horizontal" role="form" >
+{#        <p><input name="name" placeholder="name" width="200"/></p>#}
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Id</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="id"  width="200" value="{{ v0 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="title"  width="200" value="{{ v1 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" style="">Question</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="process1" name="question" rows="10" width="200" readonly="readonly" >{{ v2 }}</textarea>
+            </div>
+        </div>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+
+            <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+        <tr>
+            <th class="text-center" style="width: 8%">Respondent</th>
+            <th class="text-center" style="width: 15%">Time</th>
+            <th class="text-center" style="width: 7%">Level</th>
+            <th class="text-center" style="width: 5%">Agree</th>
+            <th class="text-center" style="width: 52%">Anwser</th>
+            <th class="text-center" style="width: 11%">operation</th>
+        </tr>
+        {% for item in li %}
+        <tr>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.respondent_id }}">{{ item.respondent_id }}</td>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.anwser_time }}">{{ item.anwser_time }}</td>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.respondent_level }}">{% if item.respondent_level == "3" %}Teacher{% endif %}{% if item.respondent_level == "1" %}Student{% endif %}</td>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.star }}">{{ item.star }}</td>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.anwser }}" >{{ item.anwser }}</td>
+            <td class="text-center">
+            <a href = "/QA_anwsers_one/?id={{ item.id }}">详情</a>
+
+            {% if request.session.level == "3"%}
+                <a href = "/Q_A_D/?id={{ item.id }}"  onclick="return window.confirm('确认删除?');">删除</a>
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+        <div class="form-group" >
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-6">
+{#                <button type="submit" class="btn btn-default pull-right" name="QA_anwser">回答</button>#}
+                <button type="submit" class="btn btn-default pull-left" name="QA_back">返回</button>
+            </div>
+        </div>
+
+
+    </form>
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+{#    <button>back</button>#}
+
+
+</body>
+</html>
+    {% else %}
+
+    <h1>你尚未登录，只能访问公开内容！</h1>
+
+    {% endif %}
+{% endblock %}

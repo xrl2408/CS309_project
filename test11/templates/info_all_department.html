@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据库查询显示</title>
+</head>
+<body>
+    {% if request.session.is_login %}
+    <form action="/search1/"  method="POST" enctype="multipart/form-data">
+        {% if request.session.level == "3"%}
+        <button type = 'submit' name = 'download' class="btn btn-default  pull-right" style="margin-right: 20px">Get Template</button>
+        <div class="form-group " >
+            <div class="col-sm-3">
+                <input type="file" class="form-control" name="myfile"/>
+            </div>
+        </div>
+        <button type = 'submit' name = 'upload' class="btn btn-default  pull-left" style="margin-left: 20px">upload</button>
+        {% endif %}
+    </form>
+
+
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 100%;/*给table一个宽度*/">
+        <tr>
+            <th class="text-center" style="width: 15%">Code</th>
+            <th class="text-center" style="width: 28%">Name</th>
+            <th class="text-center" style="width: 23%">College</th>
+            <th class="text-center" style="width: 23%">Web</th>
+            <th class="text-center" style="width: 11%">operation</th>
+        </tr>
+        {% for item in li %}
+        <tr>
+            <td class="text-center">{{ item.code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.college }}</td>
+            <td class="text-center"><a href={{ item.url_in_sustc }}>{{ item.url_in_sustc }}</a></td>
+            <td class="text-center">
+            <a href = "/show/?id={{ item.id }}">详情</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+
+    <h1 class="glyphicon-align-center">请登录</h1>
+
+    {% endif %}
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message| linebreaksbr }}');
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>
+{% endblock %}

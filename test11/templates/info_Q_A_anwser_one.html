@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if request.session.is_login %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>培养方案查询显示</title>
+</head>
+<body>
+    <form action="/QA_add/" method="POST"  class="form-horizontal" role="form" >
+{#        <p><input name="name" placeholder="name" width="200"/></p>#}
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Id of Question</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="id"  width="200" value="{{ v0 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Id of Anwser</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="id_a"  width="200" value="{{ v00 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="title"  width="200" value="{{ v1 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Question</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="process1" name="question" rows="10" width="200" readonly="readonly" >{{ v2 }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Respondent</label>
+            <div class="col-sm-6">
+                <input  class="form-control" name="title"  width="200" value="{{ v3 }}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Anwser</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="process1" name="question" rows="25" width="200" readonly="readonly" >{{ v4 }}</textarea>
+            </div>
+        </div>
+
+
+
+        <div class="form-group" >
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-default pull-right" name="QA_goodjob">赞</button>
+                <button type="submit" class="btn btn-default pull-left" name="QA_back2">返回</button>
+            </div>
+        </div>
+
+
+    </form>
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+{#    <button>back</button>#}
+
+
+</body>
+</html>
+    {% else %}
+
+    <h1>你尚未登录，只能访问公开内容！</h1>
+
+    {% endif %}
+{% endblock %}

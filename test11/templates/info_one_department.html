@@ -1,0 +1,606 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据库查询显示</title>
+</head>
+<body>
+    {% if request.session.is_login %}
+
+    <form action="/download_in_one/"  method="POST" enctype="multipart/form-data">
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 10%"><input  class="form-control ; text-center" name="code_p" readonly = 'readonly' value="{{ code_p }}" ></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 10%">
+
+        {% if request.session.level == "3"%}
+        <button type = 'submit' name = 'download' class="btn btn-default  pull-right" style="margin-right: 20px">Download</button>
+        {% endif %}
+    </div>
+    </form>
+
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >Prerequisite Courses for Freshmen</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 20%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 60%;/*给table一个宽度*/">
+
+        <tr style="font-size: 15px">
+            <th class="text-center" style="width: 30%">Course Modules</th>
+            <th class="text-center" style="width: 30%">Course Type</th>
+            <th class="text-center" style="width: 40%">Minimum Credit</th>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="4"  style="vertical-align: middle">Compulsory General knowledge</td>
+            <td class="text-center">Fundamentals of Science and Engineering</td>
+            <td class="text-center" style="vertical-align: middle">{{ tb.t1 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Military sports</td>
+            <td class="text-center">{{ tb.t2 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Ideological Politics</td>
+            <td class="text-center">{{ tb.t3 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Writing and Communication</td>
+            <td class="text-center">{{ tb.t4 }}</td>
+        </tr>
+
+        <tr>
+            <td class="text-center" rowspan="3"  style="vertical-align: middle">Elective General knowledge</td>
+            <td class="text-center">Humanity</td>
+            <td class="text-center">{{ tb.t5 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Social Sciences</td>
+            <td class="text-center">{{ tb.t6 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Art</td>
+            <td class="text-center">{{ tb.t7 }}</td>
+        </tr>
+
+        <tr>
+            <td class="text-center" rowspan="4"  style="vertical-align: middle">Professional Courses</td>
+            <td class="text-center">Professional Foundation</td>
+            <td class="text-center">{{ tb.t8 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Professional Core</td>
+            <td class="text-center">{{ tb.t9 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Professional Elective</td>
+            <td class="text-center">{{ tb.t10 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">Practical Curriculum</td>
+            <td class="text-center">{{ tb.t11 }}</td>
+        </tr>
+        <tr>
+            <td class="text-center" colspan="2"  style="vertical-align: middle">Total</td>
+            <td class="text-center"   style="vertical-align: middle">{{ tb.t12 }}</td>
+        </tr>
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >Prerequisite Courses for Freshmen</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+        </tr>
+        {% for item in pre_course_1 %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in pre_course_1_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >Prerequisite Courses for Sophomores</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in pre_course_2 %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in pre_course_2_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1 Compulsory General knowledge</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1.1 Fundamentals of Science and Engineering</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in fun_of_sci_eng %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in fun_of_sci_eng_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1.2 Military and Sports</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in Pe %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in Pe_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1.3 Ideological and Political Morality</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in Ipe %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in Ipe_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1.4 Writing and Comunication</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in W_c %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in W_c_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >1.5 English</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in Eng %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in Eng_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2 Professional Courses</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2.1 Professional Foundation</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in req_course_base %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in req_course_base_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2.2 Professional Core</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in req_course_core %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in req_course_core_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2.3 Professional Experience</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in req_course_exp %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in req_course_exp_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2.4 Elective </h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in ele_course %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in ele_course_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 100%"><h3 align="center" >2.5 Elective Experience</h3></div>
+    <div class=" col-md-1"style="margin-top: 10px;table-layout: fixed;width: 5%"></div>
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 90%;/*给table一个宽度*/">
+
+        <tr style="font-size: 10px">
+            <th class="text-center" style="width: 9%">Code</th>
+            <th class="text-center" style="width: 19%">Name</th>
+            <th class="text-center" style="width: 7%">Credit</th>
+            <th class="text-center" style="width: 7%">Credit_for_exp</th>
+            <th class="text-center" style="width: 7%">Semester</th>
+            <th class="text-center" style="width: 10%">Semester_suggestion</th>
+            <th class="text-center" style="width: 9%">language</th>
+            <th class="text-center" style="width: 20%">Pre_course</th>
+            <th class="text-center" style="width: 15%">Substitution</th>
+
+        </tr>
+        {% for item in exp_course %}
+        <tr>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.credit_for_exp }}</td>
+            <td class="text-center">{{ item.Opening_semester }}</td>
+            <td class="text-center">{{ item.recommended_Opening_semester }}</td>
+            <td class="text-center">{{ item.language }}</td>
+            <td class="text-center">{{ item.prerequisite_courses }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">{{ item.ok }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="10" class="text-center" style="width: 100%">Additional</th>
+        </tr>
+        {% for item in exp_course_addi %}
+        <tr>
+            <td colspan="10" class="text-left" style="width: 100%">{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+
+    <h1 class="glyphicon-align-center">请登录</h1>
+
+    {% endif %}
+
+</body>
+</html>
+{% endblock %}

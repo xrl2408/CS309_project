@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据库查询显示</title>
+</head>
+<body>
+    {% if request.session.is_login %}
+    <form action="/search1/"  method="POST" enctype="multipart/form-data">
+
+        <div class="form-group " >
+            <div class="col-sm-3">
+                <input autocomplete="off" class="form-control" name="search_name" placeholder="name" width="200" >
+            </div>
+        </div>
+
+
+        <button type="submit" class=" btn btn-default pull-left" name="search">search</button>
+        {% if request.session.level == "3"%}
+            <button type="submit" class="btn btn-default " name="add" style="margin-left: 20px">add</button>
+            <button type = 'submit' name = 'download_c' class="btn btn-default  pull-right" style="margin-right: 20px">Get Template</button>
+        <div class="form-group " style="margin-top: 20px">
+            <div class="col-sm-3">
+                <input type="file" class="form-control" name="myfile"/>
+            </div>
+        </div>
+{#        <input type="file" name="xsfile">#}
+        <button type = 'submit' name = 'upload_c' class="btn btn-default  pull-left" style="margin-right: 20px">upload</button>
+
+        {% endif %}
+{#        <a href="{% url 'download' %}">下载模板</a>#}
+
+
+    </form>
+
+
+
+
+    <table  class="table  table-bordered table-hover col-md-1" style="margin-top: 10px;table-layout: fixed;/*使table的宽度固定*/
+
+        width: 100%;/*给table一个宽度*/">
+        <tr>
+            <th class="text-center" style="width: 5%">Id</th>
+            <th class="text-center" style="width: 38%">Name</th>
+            <th class="text-center" style="width: 11%">Code</th>
+            <th class="text-center" style="width: 11%">Credit</th>
+            <th class="text-center" style="width: 23%">Replace</th>
+            <th class="text-center" style="width: 11%">operation</th>
+        </tr>
+        {% for item in li %}
+        <tr>
+            <td class="text-center">{{ item.id }}</td>
+            <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; " title="{{ item.name }}">{{ item.name }}</td>
+            <td class="text-center">{{ item.name_code }}</td>
+            <td class="text-center">{{ item.credit }}</td>
+            <td class="text-center">{{ item.replace_course }}</td>
+            <td class="text-center">
+            <a href = "/Coures_show/?id={{ item.id }}">详情</a>
+                {% if request.session.level == "2" or request.session.level == "3"%}
+            <a href = "/change_1/?id={{ item.id }}">修改</a>
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+
+    <h1 class="glyphicon-align-center">请登录</h1>
+
+    {% endif %}
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
